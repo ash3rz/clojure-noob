@@ -114,3 +114,55 @@
   (str treasure-location))
 
 
+
+
+;Let
+;The value of a let form is the last form in its body that is evaluated.
+(def dalmatian-list
+  ["Pongo" "Perdita" "Puppy 1" "Puppy 2"])
+(let [dalmatians (take 2 dalmatian-list)]
+  dalmatians)
+; => ("Pongo" "Perdita")
+(let [[pongo & dalmatians] dalmatian-list]
+  [pongo dalmatians])
+; => ["Pongo" ("Perdita" "Puppy 1" "Puppy 2")]
+(def x 0)
+(let [y (inc x)] y)
+; => 1
+(let [y (inc x)] x)
+; => 0
+; This is the same as above, but this is WAY MORE READABLE
+(let [y (inc x)] 
+  y)
+; OMG REMEMBER THIS -- The value of a let form is the last form in its body that is evaluated.
+
+
+
+
+;Loops
+(loop [iteration 0]
+  (println (str "Iteration " iteration))
+  (if (> iteration 3)
+    (println "Goodbye!") ;my exit
+    (recur (inc iteration)))) ;loop
+; => Iteration 0
+; => Iteration 1
+; => Iteration 2
+; => Iteration 3
+; => Iteration 4
+; => Goodbye!
+
+; This could also be written this way, but apparently loop has better performance:
+(defn recursive-printer
+  ([] (recursive-printer 0))
+  ([iteration]
+    (println "Iteration" iteration)
+    (if (> iteration 3)
+      (println "Goodbye!")
+      (recursive-printer (inc iteration)))))
+(recursive-printer)
+
+
+
+
+;Regex
