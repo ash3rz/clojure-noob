@@ -1,5 +1,6 @@
 (ns clojure-noob.core
-  (:gen-class))
+  (:gen-class)
+  (require clojure-noob.examples))
 
 (defn -main
   "I don't do a whole lot ... yet."

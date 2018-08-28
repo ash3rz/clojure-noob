@@ -47,3 +47,70 @@
 ; => [1 2 3 4]
 (conj '(1 2 3) 4)
 ; => (4 1 2 3)
+
+
+
+;Functions
+;You can do different things depending on the arity of the parameters
+(defn greet
+  ([] (greet "you"))
+  ([name] (greet name "!"))
+  ([name symbol] (print "Hello" name symbol)))
+
+(defn x-chop
+  "Describe the kind of chop you're inflicting on someone"
+  ([name chop-type] 
+   (str "I " chop-type " chop " name "! Take that!"))
+  ([name]
+   (x-chop name "karate")))
+  
+
+;
+(defn codger-communication
+  [whippersnapper]
+  (str "Get off my lawn, " whippersnapper "!!!"))
+
+(defn codger
+  [& whippersnappers]
+  (map codger-communication whippersnappers))
+
+(codger "Billy" "Anne-Marie" "The Incredible Bulk")
+;
+
+
+;Destructuring
+;Lists/Vectors
+(defn chooser
+  [[first-choice second-choice & unimportant-choices]]
+  (println (str "Your first choice is: " first-choice))
+  (println (str "Your second choice is: " second-choice))
+  (println (str "We're ignoring the rest of your choices. "
+                "Here they are in case you need to cry over them: "
+                (clojure.string/join ", " unimportant-choices))))
+
+(chooser ["Marmalade", "Handsome Jack", "Pigpen", "Aquaman"])
+
+;Maps
+(defn announce-treasure-location
+  [{lat :lat lng :lng}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng)))
+
+(announce-treasure-location {:lat 28.22 :lng 81.33})
+
+;Maps - shorter syntax
+(defn announce-treasure-location-short
+  [{:keys [lat lng]}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng)))
+
+;Destructuring while also maintaining the original props/map
+(defn receive-treasure-location
+  [{:keys [lat lng] :as treasure-location}]
+  (println (str "Treasure lat: " lat))
+  (println (str "Treasure lng: " lng))
+
+  ;; One would assume that this would put in new coordinates for your ship
+  (str treasure-location))
+
+
