@@ -166,3 +166,27 @@
 
 
 ;Regex
+#"regular-expression"
+(clojure.string/replace (str "I need help!") #"help" "puppies")
+
+
+
+;Reduce
+(reduce + [1 2 3 4])
+; => 10
+;Reduce with an initial value of 15
+(reduce + 15 [1 2 3 4])
+; => 25
+
+(defn my-reduce
+  ([f initial coll]
+   (loop [result initial
+          remaining coll]
+     (if (empty? remaining)
+       result
+       (recur (f result (first remaining)) (rest remaining)))))
+  ([f [head & tail]]
+   (my-reduce f head tail)))
+
+(my-reduce + 0 [1 2 3 4])
+
